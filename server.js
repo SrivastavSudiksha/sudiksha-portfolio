@@ -1,8 +1,8 @@
-const express  = require('express');
+const express = require('express');
 const mongoose = require('mongoose');
-const cors     = require('cors');
-const dotenv   = require('dotenv');
-const https    = require('https'); // ✅ built-in — no install needed
+const cors = require('cors');
+const dotenv = require('dotenv');
+const https = require('https');
 
 dotenv.config();
 const app = express();
@@ -33,11 +33,11 @@ const contactSchema = new mongoose.Schema({
 });
 
 const Project = mongoose.model('Project', projectSchema);
-const About   = mongoose.model('About',   aboutSchema);
-const Exp     = mongoose.model('Exp',     expSchema);
+const About = mongoose.model('About', aboutSchema);
+const Exp = mongoose.model('Exp', expSchema);
 const Contact = mongoose.model('Contact', contactSchema);
 
-// ── HELPER: https GET (replaces node-fetch) ──
+// ── HELPER: https GET ──
 function httpsGet(url) {
   return new Promise((resolve, reject) => {
     const options = {
@@ -67,7 +67,7 @@ async function seedDB() {
     {
       title: 'AI + EI Smart Surveillance',
       desc: 'Detects suspicious behavior & emotions from real-time CCTV footage.',
-      longDesc: 'AI-based surveillance system using computer vision & deep learning to detect suspicious emotional and behavioral patterns from real-time CCTV. Implements face detection via OpenCV, YOLOv8 & MTCNN. Emotion recognition classifies expressions and identifies risk indicators. Anomaly detection triggers real-time alerts.',
+      longDesc: 'AI-based surveillance system using computer vision & deep learning to detect suspicious emotional and behavioral patterns from real-time CCTV.',
       emoji: '📷', bg: 'linear-gradient(135deg,#0a1628,#0d3460)',
       tags: ['Python', 'OpenCV', 'YOLOv8', 'Deep Learning', 'FastAPI', 'MTCNN'],
       year: '2026', order: 1
@@ -75,7 +75,7 @@ async function seedDB() {
     {
       title: 'ICU Patient Monitoring',
       desc: 'Data-driven clinical error detection & anomaly flagging for ICU patients.',
-      longDesc: 'ML-powered ICU monitoring system that identifies and flags potential clinical errors using data-driven anomaly detection. Integrates real-time alerting for faster medical decision-making and reduces dependency on manual monitoring.',
+      longDesc: 'ML-powered ICU monitoring system that identifies and flags potential clinical errors using data-driven anomaly detection.',
       emoji: '🏥', bg: 'linear-gradient(135deg,#0a2010,#0d4020)',
       tags: ['Python', 'Machine Learning', 'AWS', 'Streamlit', 'Pandas'],
       year: '2025', order: 2
@@ -83,7 +83,7 @@ async function seedDB() {
     {
       title: 'Biotech Workflow Automation',
       desc: 'Cloud-based platform to automate biotechnology data pipelines & reports.',
-      longDesc: 'Cloud platform automating biotechnology workflows — data logging, analysis, report generation. Built on AWS with Streamlit dashboards and Pandas pipelines for biological and experimental datasets.',
+      longDesc: 'Cloud platform automating biotechnology workflows — data logging, analysis, report generation.',
       emoji: '🧬', bg: 'linear-gradient(135deg,#1a0a2e,#2d1060)',
       tags: ['Python', 'AWS', 'Streamlit', 'Pandas', 'Automation'],
       year: '2025', order: 3
@@ -91,7 +91,7 @@ async function seedDB() {
     {
       title: 'Personal Portfolio Website',
       desc: 'Netflix-style responsive portfolio with animations & backend API.',
-      longDesc: 'Full-stack Netflix-inspired portfolio with terminal splash screen, Playfair + Cormorant typography, MongoDB backend, contact form, GitHub stats integration and dynamic project/skill loading.',
+      longDesc: 'Full-stack Netflix-inspired portfolio with MongoDB backend, contact form, GitHub stats integration.',
       emoji: '🎬', bg: 'linear-gradient(135deg,#1a0505,#3a0808)',
       tags: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'MongoDB', 'Express'],
       year: '2025', order: 4
@@ -99,11 +99,11 @@ async function seedDB() {
   ]);
 
   await About.create({
-    bio: "I'm a B.Tech Biotechnology student at JIIT Noida (2024–2028) with a deep passion for building intelligent systems. I work at the intersection of Computer Vision, AI/ML and Full-Stack Web — from real-time CCTV surveillance to cloud-based biotech automation. IEEE volunteer and always looking for the next challenge.",
+    bio: "I'm a B.Tech Biotechnology student at JIIT Noida (2024–2028) with a deep passion for building intelligent systems. I work at the intersection of Computer Vision, AI/ML and Full-Stack Web.",
     stats: [
-      { value: '4+',   label: 'Projects Built' },
-      { value: '12+',  label: 'Technologies'   },
-      { value: '2025', label: 'IEEE Member'     },
+      { value: '4+', label: 'Projects Built' },
+      { value: '12+', label: 'Technologies' },
+      { value: '2025', label: 'IEEE Member' },
     ]
   });
 
@@ -112,7 +112,7 @@ async function seedDB() {
       title: 'Volunteer — IEEE Student Branch',
       org: 'IEEE · JIIT Noida',
       date: '2025 – 26',
-      desc: 'Active volunteer at the IEEE Student Branch, contributing to technical events, workshops and community-driven coding initiatives on campus.',
+      desc: 'Active volunteer at the IEEE Student Branch, contributing to technical events.',
       order: 1
     },
   ]);
@@ -158,58 +158,47 @@ app.get('/api/contact', async (req, res) => {
   }
 });
 
-// ── GITHUB STATS (no external package needed) ──
 app.get('/api/github', async (req, res) => {
   try {
     const userData = await httpsGet('https://api.github.com/users/sudiksha-srivastav');
-
     let totalStars = 0;
     try {
       const reposData = await httpsGet('https://api.github.com/users/sudiksha-srivastav/repos?per_page=100');
       if (Array.isArray(reposData)) {
         totalStars = reposData.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
       }
-    } catch (e) {
-      // stars fetch fail hone par bhi user data return karo
-    }
-
+    } catch (e) {}
     res.json({ ...userData, total_stars: totalStars });
   } catch (err) {
-    // GitHub API fail hone par empty object — frontend gracefully handles it
-    res.json({
-      public_repos: 0,
-      followers: 0,
-      following: 0,
-      total_stars: 0
-    });
+    res.json({ public_repos: 0, followers: 0, following: 0, total_stars: 0 });
   }
 });
 
-// ── CONTACT FORM ──
 app.post('/api/contact', async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
-
     if (!name || !email || !subject || !message) {
       return res.status(400).json({ error: 'All fields are required.' });
     }
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ error: 'Invalid email address.' });
     }
-
     const contact = new Contact({ name, email, subject, message });
     await contact.save();
-    console.log(`📩 New message from ${name} <${email}>`);
     res.status(201).json({ success: true, message: 'Message saved!' });
   } catch (err) {
-    console.error('Contact save error:', err);
     res.status(500).json({ error: 'Server error. Please try again.' });
   }
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running → http://localhost:${PORT}`);
-});
+// ── FOR VERCEL DEPLOYMENT ──
+// ── FOR VERCEL DEPLOYMENT ──
+if (process.env.VERCEL) {
+  module.exports = app;
+} else {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running → http://localhost:${PORT}`);
+  });
+}
