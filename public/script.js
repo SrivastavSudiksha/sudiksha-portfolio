@@ -1,8 +1,54 @@
-
-/* ══════════════════════════════════
-   MATRIX RAIN + SPLASH
-══════════════════════════════════ */
 const API = 'http://localhost:5000/api';
+
+// ── FALLBACK DATA ──
+const fallbackProjects = [
+  {
+    title: 'AI + EI Smart Surveillance', year: '2026',
+    desc: 'Detects suspicious behavior & emotions from real-time CCTV footage.',
+    longDesc: 'AI-based surveillance system using CV & deep learning to detect suspicious emotional and behavioral patterns from real-time CCTV. Face detection via OpenCV, YOLOv8 & MTCNN. Emotion recognition classifies expressions and identifies risk indicators. Anomaly detection triggers real-time alerts.',
+    emoji: '📷', bg: 'linear-gradient(135deg,#0a1628,#0d3460)',
+    tags: ['Python','OpenCV','YOLOv8','Deep Learning','FastAPI','MTCNN']
+  },
+  {
+    title: 'ICU Patient Monitoring', year: '2025',
+    desc: 'Data-driven clinical error detection & anomaly flagging for ICU patients.',
+    longDesc: 'ML-powered ICU monitoring system that flags potential clinical errors using anomaly detection. Real-time alerting for faster medical decision-making.',
+    emoji: '🏥', bg: 'linear-gradient(135deg,#0a2010,#0d4020)',
+    tags: ['Python','Machine Learning','AWS','Streamlit','Pandas']
+  },
+  {
+    title: 'Biotech Workflow Automation', year: '2025',
+    desc: 'Cloud-based platform to automate biotechnology data pipelines.',
+    longDesc: 'Cloud platform automating biotech workflows — data logging, analysis, report generation on AWS with Streamlit dashboards and Pandas pipelines.',
+    emoji: '🧬', bg: 'linear-gradient(135deg,#1a0a2e,#2d1060)',
+    tags: ['Python','AWS','Streamlit','Pandas','Automation']
+  },
+  {
+    title: 'Personal Portfolio Website', year: '2025',
+    desc: 'Netflix-style responsive portfolio with animations & backend API.',
+    longDesc: 'Full-stack Netflix-inspired portfolio with terminal splash screen, MongoDB backend, contact form and GitHub stats integration.',
+    emoji: '🎬', bg: 'linear-gradient(135deg,#1a0505,#3a0808)',
+    tags: ['HTML','CSS','JavaScript','Node.js','MongoDB','Express']
+  },
+];
+
+const fallbackAbout = {
+  bio: "I'm a B.Tech Biotechnology student at JIIT Noida (2024–2028) passionate about building intelligent systems at the intersection of Computer Vision, AI/ML and Full-Stack Web. IEEE volunteer and always looking for the next challenge.",
+  stats: [
+    { value:'4+',   label:'Projects Built' },
+    { value:'12+',  label:'Technologies'   },
+    { value:'2025', label:'IEEE Member'    },
+  ]
+};
+
+const fallbackExp = [
+  {
+    title: 'Volunteer — IEEE Student Branch',
+    org: 'IEEE · JIIT Noida',
+    date: '2025 – 26',
+    desc: 'Active volunteer contributing to technical events, workshops and community-driven coding initiatives on campus.'
+  }
+];
 
 // ── MATRIX RAIN ──
 (function(){
@@ -92,42 +138,34 @@ document.getElementById('splash').addEventListener('click', () => {
 window.addEventListener('keydown', () => {
   clearTimeout(window._splashTimer); dismissSplash();
 }, { once: true });
-/* ══════════════════════════════════
-   NAV SCROLL
-══════════════════════════════════ */
+
+// ── NAV SCROLL ──
 window.addEventListener('scroll', () => {
   document.getElementById('navbar')
     .classList.toggle('scrolled', window.scrollY > 50);
 });
 
-/* ══════════════════════════════════
-   SKILLS DATA
-══════════════════════════════════ */
+// ── SKILLS DATA ──
 const skillsData = [
-  // Languages
-  { icon:'🐍', name:'Python',      cat:'lang',  catLabel:'Language', level:90, desc:'Primary language — AI, CV, scripting', bg:'#0a1a0a', featured:true },
-  { icon:'⚡', name:'C / C++',     cat:'lang',  catLabel:'Language', level:78, desc:'DSA, algorithms, OOP',                 bg:'#0a0a1a' },
-  { icon:'🟨', name:'JavaScript',  cat:'lang',  catLabel:'Language', level:80, desc:'Frontend + Node.js',                  bg:'#1a1a00' },
-  { icon:'🌐', name:'HTML + CSS',  cat:'lang',  catLabel:'Language', level:85, desc:'Responsive web UI',                   bg:'#1a0800' },
-  // AI / ML
-  { icon:'👁', name:'OpenCV',       cat:'ai',    catLabel:'AI / CV',  level:82, desc:'Real-time computer vision',           bg:'#001a1a' },
-  { icon:'🤖', name:'YOLOv8',       cat:'ai',    catLabel:'AI / CV',  level:78, desc:'Object detection & tracking',        bg:'#0a001a' },
-  { icon:'🧠', name:'Deep Learning',cat:'ai',    catLabel:'AI / ML',  level:72, desc:'CNN, classification, anomaly',       bg:'#1a0018' },
-  { icon:'📊', name:'Scikit-Learn', cat:'ai',    catLabel:'AI / ML',  level:75, desc:'Classical ML, NLP pipelines',        bg:'#001818' },
-  { icon:'🔢', name:'MTCNN',        cat:'ai',    catLabel:'AI / CV',  level:70, desc:'Face detection & alignment',         bg:'#180010' },
-  { icon:'⚙️', name:'FastAPI',      cat:'ai',    catLabel:'AI / ML',  level:74, desc:'ML model serving & REST APIs',       bg:'#001200' },
-  // Web
-  { icon:'⚛️', name:'React',        cat:'web',   catLabel:'Web',      level:75, desc:'Component-driven UI',                bg:'#0a0028' },
-  { icon:'🚂', name:'Express.js',   cat:'web',   catLabel:'Web',      level:75, desc:'Backend REST APIs',                  bg:'#0a0a1a' },
-  { icon:'🎨', name:'Streamlit',    cat:'web',   catLabel:'Web',      level:85, desc:'Data dashboards & ML apps',          bg:'#0a1a1a' },
-  // Tools & Cloud
-  { icon:'☁️', name:'AWS',          cat:'tools', catLabel:'Cloud',    level:70, desc:'S3, EC2, Lambda basics',             bg:'#1a0e00' },
-  { icon:'🐳', name:'Docker',       cat:'tools', catLabel:'DevOps',   level:60, desc:'Containerization basics',            bg:'#001018' },
-  { icon:'🐙', name:'Git & GitHub', cat:'tools', catLabel:'DevOps',   level:85, desc:'Version control & open source',     bg:'#1a0a00' },
-  { icon:'💻', name:'VS Code',      cat:'tools', catLabel:'Tools',    level:90, desc:'Primary development environment',    bg:'#000a1a' },
-  // Databases
-  { icon:'🍃', name:'MongoDB',      cat:'db',    catLabel:'Database', level:75, desc:'NoSQL document store',               bg:'#001a08' },
-  { icon:'🗄️', name:'MySQL',        cat:'db',    catLabel:'Database', level:70, desc:'Relational queries & schema',        bg:'#0a001a' },
+  { icon:'🐍', name:'Python',       cat:'lang',  catLabel:'Language', level:90, desc:'Primary language — AI, CV, scripting', bg:'#0a1a0a', featured:true },
+  { icon:'⚡', name:'C / C++',      cat:'lang',  catLabel:'Language', level:78, desc:'DSA, algorithms, OOP',                 bg:'#0a0a1a' },
+  { icon:'🟨', name:'JavaScript',   cat:'lang',  catLabel:'Language', level:80, desc:'Frontend + Node.js',                  bg:'#1a1a00' },
+  { icon:'🌐', name:'HTML + CSS',   cat:'lang',  catLabel:'Language', level:85, desc:'Responsive web UI',                   bg:'#1a0800' },
+  { icon:'👁',  name:'OpenCV',       cat:'ai',    catLabel:'AI / CV',  level:82, desc:'Real-time computer vision',           bg:'#001a1a' },
+  { icon:'🤖', name:'YOLOv8',       cat:'ai',    catLabel:'AI / CV',  level:78, desc:'Object detection & tracking',         bg:'#0a001a' },
+  { icon:'🧠', name:'Deep Learning',cat:'ai',    catLabel:'AI / ML',  level:72, desc:'CNN, classification, anomaly',        bg:'#1a0018' },
+  { icon:'📊', name:'Scikit-Learn', cat:'ai',    catLabel:'AI / ML',  level:75, desc:'Classical ML, NLP pipelines',         bg:'#001818' },
+  { icon:'🔢', name:'MTCNN',        cat:'ai',    catLabel:'AI / CV',  level:70, desc:'Face detection & alignment',          bg:'#180010' },
+  { icon:'⚙️', name:'FastAPI',      cat:'ai',    catLabel:'AI / ML',  level:74, desc:'ML model serving & REST APIs',        bg:'#001200' },
+  { icon:'⚛️', name:'React',        cat:'web',   catLabel:'Web',      level:75, desc:'Component-driven UI',                 bg:'#0a0028' },
+  { icon:'🚂', name:'Express.js',   cat:'web',   catLabel:'Web',      level:75, desc:'Backend REST APIs',                   bg:'#0a0a1a' },
+  { icon:'🎨', name:'Streamlit',    cat:'web',   catLabel:'Web',      level:85, desc:'Data dashboards & ML apps',           bg:'#0a1a1a' },
+  { icon:'☁️', name:'AWS',          cat:'tools', catLabel:'Cloud',    level:70, desc:'S3, EC2, Lambda basics',              bg:'#1a0e00' },
+  { icon:'🐳', name:'Docker',       cat:'tools', catLabel:'DevOps',   level:60, desc:'Containerization basics',             bg:'#001018' },
+  { icon:'🐙', name:'Git & GitHub', cat:'tools', catLabel:'DevOps',   level:85, desc:'Version control & open source',      bg:'#1a0a00' },
+  { icon:'💻', name:'VS Code',      cat:'tools', catLabel:'Tools',    level:90, desc:'Primary development environment',     bg:'#000a1a' },
+  { icon:'🍃', name:'MongoDB',      cat:'db',    catLabel:'Database', level:75, desc:'NoSQL document store',                bg:'#001a08' },
+  { icon:'🗄️', name:'MySQL',        cat:'db',    catLabel:'Database', level:70, desc:'Relational queries & schema',         bg:'#0a001a' },
 ];
 
 let currentSkillFilter = 'all';
@@ -173,14 +211,11 @@ function renderSkills(list) {
   }, 120);
 }
 
-/* ══════════════════════════════════
-   LOAD ALL DATA FROM BACKEND
-══════════════════════════════════ */
+// ── LOAD ALL ──
 async function loadAll() {
   await Promise.all([loadProjects(), loadAbout(), loadExperience(), loadGitHubStats()]);
   renderSkills(skillsData);
   updateFeatured(skillsData.find(s => s.featured));
-
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting)
@@ -192,82 +227,102 @@ async function loadAll() {
   if (sg) obs.observe(sg);
 }
 
+// ── PROJECTS ──
 async function loadProjects() {
   try {
-    const res  = await fetch(`${API}/projects`);
+    const res = await fetch(`${API}/projects`);
+    if (!res.ok) throw new Error();
     const data = await res.json();
-    const cont = document.getElementById('projectCards');
-    cont.innerHTML = '';
-    data.forEach(p => {
-      const c = document.createElement('div');
-      c.className = 'project-card';
-      c.innerHTML = `
-        <div class="card-thumb" style="background:${p.bg}">${p.emoji}</div>
-        <div class="card-info">
-          <div class="card-year">${p.year || ''}</div>
-          <div class="card-title">${p.title}</div>
-          <div class="card-desc">${p.desc}</div>
-          <div class="card-tags">${(p.tags||[]).map(t=>`<span class="card-tag">${t}</span>`).join('')}</div>
-        </div>`;
-      c.addEventListener('click', () => openModal(p));
-      cont.appendChild(c);
-    });
+    renderProjects(data.length ? data : fallbackProjects);
   } catch {
-    document.getElementById('projectCards').innerHTML =
-      '<div class="loading-cards" style="color:#ff6b6b">// Server offline — run npm run dev</div>';
+    renderProjects(fallbackProjects);
   }
 }
 
+function renderProjects(list) {
+  const cont = document.getElementById('projectCards');
+  cont.innerHTML = '';
+  list.forEach(p => {
+    const c = document.createElement('div');
+    c.className = 'project-card';
+    c.innerHTML = `
+      <div class="card-thumb" style="background:${p.bg}">${p.emoji}</div>
+      <div class="card-info">
+        <div class="card-year">${p.year || ''}</div>
+        <div class="card-title">${p.title}</div>
+        <div class="card-desc">${p.desc}</div>
+        <div class="card-tags">${(p.tags||[]).map(t=>`<span class="card-tag">${t}</span>`).join('')}</div>
+      </div>`;
+    c.addEventListener('click', () => openModal(p));
+    cont.appendChild(c);
+  });
+}
+
+// ── ABOUT ──
 async function loadAbout() {
   try {
-    const res  = await fetch(`${API}/about`);
+    const res = await fetch(`${API}/about`);
+    if (!res.ok) throw new Error();
     const data = await res.json();
     document.getElementById('aboutBio').textContent = data.bio;
     document.getElementById('aboutStats').innerHTML = data.stats
       .map(s=>`<div class="stat"><div class="stat-num">${s.value}</div><div class="stat-label">${s.label}</div></div>`)
       .join('');
-  } catch { /* silent */ }
+  } catch {
+    document.getElementById('aboutBio').textContent = fallbackAbout.bio;
+    document.getElementById('aboutStats').innerHTML = fallbackAbout.stats
+      .map(s=>`<div class="stat"><div class="stat-num">${s.value}</div><div class="stat-label">${s.label}</div></div>`)
+      .join('');
+  }
 }
 
+// ── EXPERIENCE ──
 async function loadExperience() {
   try {
-    const res  = await fetch(`${API}/experience`);
+    const res = await fetch(`${API}/experience`);
+    if (!res.ok) throw new Error();
     const data = await res.json();
-    const cont = document.getElementById('timeline');
-    cont.innerHTML = '';
-    data.forEach((item, i) => {
-      const div = document.createElement('div');
-      div.className = 'timeline-item';
-      div.innerHTML = `
-        <div class="tl-date">${item.date}</div>
-        <div class="tl-line-wrap">
-          <div class="tl-dot"></div>
-          <div class="tl-stem" style="${i===data.length-1?'background:transparent':''}"></div>
-        </div>
-        <div class="tl-body">
-          <div class="tl-title">${item.title}</div>
-          <div class="tl-org">${item.org}</div>
-          <div class="tl-desc">${item.desc}</div>
-        </div>`;
-      cont.appendChild(div);
-    });
-  } catch { /* silent */ }
+    renderTimeline(data.length ? data : fallbackExp);
+  } catch {
+    renderTimeline(fallbackExp);
+  }
 }
 
+function renderTimeline(list) {
+  const cont = document.getElementById('timeline');
+  cont.innerHTML = '';
+  list.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'timeline-item';
+    div.innerHTML = `
+      <div class="tl-date">${item.date}</div>
+      <div class="tl-line-wrap">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="${i===list.length-1?'background:transparent':''}"></div>
+      </div>
+      <div class="tl-body">
+        <div class="tl-title">${item.title}</div>
+        <div class="tl-org">${item.org}</div>
+        <div class="tl-desc">${item.desc}</div>
+      </div>`;
+    cont.appendChild(div);
+  });
+}
+
+// ── GITHUB STATS ──
 async function loadGitHubStats() {
   try {
-    const res  = await fetch(`${API}/github`);
+    const res = await fetch(`${API}/github`);
+    if (!res.ok) throw new Error();
     const data = await res.json();
-    document.getElementById('ghReposNum').textContent    = data.public_repos   || '—';
-    document.getElementById('ghFollowers').textContent   = data.followers       || '—';
-    document.getElementById('ghFollowing').textContent   = data.following       || '—';
-    document.getElementById('ghStarsNum').textContent    = data.total_stars     || '—';
-  } catch { /* silent */ }
+    document.getElementById('ghReposNum').textContent  = data.public_repos || '—';
+    document.getElementById('ghFollowers').textContent = data.followers     || '—';
+    document.getElementById('ghFollowing').textContent = data.following     || '—';
+    document.getElementById('ghStarsNum').textContent  = data.total_stars   || '—';
+  } catch { /* silent — dashes rahenge */ }
 }
 
-/* ══════════════════════════════════
-   CONTACT FORM
-══════════════════════════════════ */
+// ── CONTACT FORM ──
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contactForm');
   if (!form) return;
@@ -302,9 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-/* ══════════════════════════════════
-   MODAL
-══════════════════════════════════ */
+// ── MODAL ──
 function openModal(p) {
   document.getElementById('modalHeader').style.background = p.bg || '#1a1a1a';
   document.getElementById('modalHeader').innerHTML =
@@ -317,6 +370,7 @@ function openModal(p) {
     (p.tags||[]).map(t=>`<span class="modal-tag">${t}</span>`).join('');
   document.getElementById('modal').classList.add('open');
 }
+
 function closeModal(e) {
   if (e.target === document.getElementById('modal'))
     document.getElementById('modal').classList.remove('open');
