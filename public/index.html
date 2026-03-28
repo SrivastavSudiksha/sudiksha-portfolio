@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sudiksha Srivastav — Portfolio</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ══ SPLASH SCREEN ══ -->
+<div id="splash">
+  <canvas id="matrixCanvas"></canvas>
+  <div class="scanline"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+  <div class="splash-content">
+    <div class="splash-terminal">
+      <div class="terminal-bar">
+        <span class="t-dot red"></span>
+        <span class="t-dot yellow"></span>
+        <span class="t-dot green"></span>
+        <span class="t-title">sudiksha@jiit-noida ~ zsh</span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line" id="tl1"></div>
+        <div class="t-line" id="tl2"></div>
+        <div class="t-line" id="tl3"></div>
+        <div class="t-line" id="tl4"></div>
+        <div class="t-line" id="tl5"></div>
+        <div class="t-line" id="tl6"></div>
+        <div class="splash-name-wrap">
+          <div class="splash-name" id="splashName"></div>
+          <div class="splash-cursor">▋</div>
+        </div>
+        <div class="splash-tagline" id="splashTag"></div>
+        <div class="splash-progress-wrap">
+          <div class="splash-progress-bg">
+            <div class="splash-progress-bar" id="splashBar"></div>
+          </div>
+          <div class="splash-progress-labels">
+            <span>LOADING PORTFOLIO</span>
+            <span id="splashPct">0%</span>
+          </div>
+        </div>
+        <div class="t-skip">[ click anywhere or press any key to skip ]</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div id="mainContent" style="display:none">
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-logo">&lt;SS /&gt;</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-resume-btn" href="/resume.pdf" target="_blank">Resume ↗</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-fade"></div>
+    <div class="hero-content">
+      <div class="hero-tag">&lt; B.Tech Biotechnology + AI/ML /&gt;</div>
+      <h1 class="hero-title">
+        Sudiksha<br><em>Srivastav</em>
+      </h1>
+      <p class="hero-subtitle">
+        Engineering student at JIIT Noida — building intelligent systems at the intersection of 
+        <span class="hl">Computer Vision</span>, <span class="hl">AI/ML</span> and <span class="hl">Full-Stack Web</span>.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-play" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+          ▶ View Projects
+        </button>
+        <button class="btn-info" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+          ✉ Contact Me
+        </button>
+      </div>
+      <div class="hero-meta">
+        <span class="match">// 2024–2028</span>
+        <span>JIIT Noida</span>
+        <span>Batch of 2028</span>
+      </div>
+    </div>
+    <!-- Floating code snippet decoration -->
+    <div class="hero-code-float">
+      <pre><span class="c-key">import</span> <span class="c-mod">cv2</span>, <span class="c-mod">torch</span>
+<span class="c-key">from</span> <span class="c-mod">ultralytics</span> <span class="c-key">import</span> YOLO
+
+model = YOLO(<span class="c-str">'yolov8n.pt'</span>)
+<span class="c-key">def</span> <span class="c-fn">detect</span>(frame):
+    results = model(frame)
+    <span class="c-key">return</span> results.boxes</pre>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" class="row">
+    <div class="row-title">About Me <span class="row-tag">// whoami</span></div>
+    <div class="about-spotlight">
+      <div class="about-visual">
+        <div class="about-avatar">SS</div>
+        <div class="about-badges">
+          <span class="badge">IEEE Member</span>
+          <span class="badge">B.Tech 2028</span>
+          <span class="badge">Open Source</span>
+        </div>
+      </div>
+      <div class="about-text" id="aboutText">
+        <div class="about-label">// bio.txt</div>
+        <div class="about-heading">Hi, I'm <em>Sudiksha</em></div>
+        <p class="about-body" id="aboutBio">Loading...</p>
+        <div class="about-stats" id="aboutStats"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="row">
+    <div class="row-title">Education <span class="row-tag">// academics</span></div>
+    <div class="education-card">
+      <div class="edu-left">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-line"></div>
+      </div>
+      <div class="edu-right">
+        <div class="edu-degree">Bachelor of Technology — Biotechnology</div>
+        <div class="edu-school">Jaypee Institute of Information Technology, Noida</div>
+        <div class="edu-meta">
+          <span class="edu-year">2024 – 2028</span>
+          <span class="edu-tag">Core: DSA · OOP · AI/ML · Computer Vision</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="row">
+    <div class="row-title">Projects <span class="row-tag">// git log --oneline</span></div>
+    <div class="cards-scroll" id="projectCards">
+      <div class="loading-cards">Fetching repos...</div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="skills-section-wrapper">
+    <div class="row-title">Skills & Tools <span class="row-tag">// skills.json</span></div>
+    <div class="skills-tabs" id="skillsTabs">
+      <div class="skills-tab active" onclick="filterSkills('all',this)">All</div>
+      <div class="skills-tab" onclick="filterSkills('lang',this)">Languages</div>
+      <div class="skills-tab" onclick="filterSkills('ai',this)">AI / ML</div>
+      <div class="skills-tab" onclick="filterSkills('web',this)">Web</div>
+      <div class="skills-tab" onclick="filterSkills('tools',this)">Tools & Cloud</div>
+      <div class="skills-tab" onclick="filterSkills('db',this)">Databases</div>
+    </div>
+    <div class="featured-skill">
+      <div class="featured-icon" id="featuredIcon">🐍</div>
+      <div class="featured-info">
+        <div class="featured-name" id="featuredName">PYTHON</div>
+        <div class="featured-desc" id="featuredDesc">Primary language — AI/ML, CV, automation & backend systems</div>
+        <div class="featured-bar-wrap"><div class="featured-bar" id="featuredBar"></div></div>
+      </div>
+      <div class="featured-pct" id="featuredPct">90%</div>
+    </div>
+    <div class="skills-grid" id="skillsGrid"></div>
+    <div class="skills-stats">
+      <div class="skills-stat-card"><div class="skills-stat-num">12+</div><div class="skills-stat-lbl">Technologies</div></div>
+      <div class="skills-stat-card"><div class="skills-stat-num">4+</div><div class="skills-stat-lbl">Projects Built</div></div>
+      <div class="skills-stat-card"><div class="skills-stat-num">3+</div><div class="skills-stat-lbl">Domains</div></div>
+      <div class="skills-stat-card"><div class="skills-stat-num">∞</div><div class="skills-stat-lbl">Still Learning</div></div>
+    </div>
+  </section>
+
+  <!-- GITHUB STATS -->
+  <section class="row" id="github">
+    <div class="row-title">GitHub Stats <span class="row-tag">// contribution graph</span></div>
+    <div class="github-stats-grid">
+      <div class="github-stat-card" id="ghRepos">
+        <div class="gh-icon">📦</div>
+        <div class="gh-num" id="ghReposNum">—</div>
+        <div class="gh-label">Public Repos</div>
+      </div>
+      <div class="github-stat-card" id="ghStars">
+        <div class="gh-icon">⭐</div>
+        <div class="gh-num" id="ghStarsNum">—</div>
+        <div class="gh-label">Total Stars</div>
+      </div>
+      <div class="github-stat-card">
+        <div class="gh-icon">🔀</div>
+        <div class="gh-num" id="ghFollowers">—</div>
+        <div class="gh-label">Followers</div>
+      </div>
+      <div class="github-stat-card">
+        <div class="gh-icon">💡</div>
+        <div class="gh-num" id="ghFollowing">—</div>
+        <div class="gh-label">Following</div>
+      </div>
+    </div>
+    <div class="github-img-wrap">
+      <img src="https://github-readme-stats.vercel.app/api?username=sudiksha-srivastav&show_icons=true&theme=dark&bg_color=1a1a1a&title_color=E50914&icon_color=E50914&text_color=ffffff&border_color=333" 
+           alt="GitHub Stats" class="github-img" onerror="this.parentElement.style.display='none'"/>
+      <img src="https://github-readme-streak-stats.herokuapp.com/?user=sudiksha-srivastav&theme=dark&background=1a1a1a&ring=E50914&fire=E50914&currStreakLabel=E50914&border=333"
+           alt="GitHub Streak" class="github-img" onerror="this.parentElement.style.display='none'"/>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE / POSITIONS -->
+  <section id="experience" class="row">
+    <div class="row-title">Experience <span class="row-tag">// positions</span></div>
+    <div class="timeline" id="timeline">
+      <div class="loading-cards">Loading...</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="row">
+    <div class="row-title">Contact <span class="row-tag">// reach out</span></div>
+    <div class="contact-row">
+      <div class="contact-title">Let's <em>Build</em> Something</div>
+      <p class="contact-sub">// Open to internships, collaborations & interesting projects</p>
+      <div class="contact-links-row">
+        <a href="mailto:sudiksha.srivastav@yahoo.com" class="contact-chip">✉ sudiksha.srivastav@yahoo.com</a>
+        <a href="tel:+918770461973" class="contact-chip">📞 +91-8770461973</a>
+        <a href="https://linkedin.com/in/sudiksha-srivastav" target="_blank" class="contact-chip">💼 LinkedIn</a>
+        <a href="https://github.com/sudiksha-srivastav" target="_blank" class="contact-chip">🐙 GitHub</a>
+        <a href="/resume.pdf" target="_blank" class="contact-chip red">📄 Download Resume</a>
+      </div>
+      <form id="contactForm" class="contact-form">
+        <div class="form-row">
+          <input type="text"  id="senderName"  placeholder="// Your Name"  required/>
+          <input type="email" id="senderEmail" placeholder="// Your Email" required/>
+        </div>
+        <input type="text" id="subject" placeholder="// Subject" required/>
+        <textarea id="message" placeholder="// Your Message..." rows="5" required></textarea>
+        <button type="submit" class="btn-submit" id="submitBtn">Send Message ↗</button>
+        <div id="formMsg" class="form-msg"></div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-code">// Crafted with ❤️ by </span><span>Sudiksha Srivastav</span>
+    <span class="footer-code"> · © 2025 · All Rights Reserved</span>
+  </footer>
+
+</div><!-- /mainContent -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header" id="modalHeader">
+      <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-stack" id="modalStack"></div>
+      <div class="modal-desc"  id="modalDesc"></div>
+      <div class="modal-tags"  id="modalTags"></div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
