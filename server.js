@@ -160,10 +160,10 @@ app.get('/api/contact', async (req, res) => {
 
 app.get('/api/github', async (req, res) => {
   try {
-    const userData = await httpsGet('https://api.github.com/users/sudiksha-srivastav');
+    const userData = await httpsGet('https://api.github.com/users/SrivastavSudiksha');
     let totalStars = 0;
     try {
-      const reposData = await httpsGet('https://api.github.com/users/sudiksha-srivastav/repos?per_page=100');
+      const reposData = await httpsGet('https://api.github.com/users/SrivastavSudiksha/repos?per_page=100');
       if (Array.isArray(reposData)) {
         totalStars = reposData.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
       }
